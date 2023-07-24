@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Model">
+            <EntityType HasStream="false" Name="Pet">
+                <Key>
+                    <PropertyRef Name="Pet_Id"/>
+                </Key>
+                <Property Name="Pet_Id" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="Pet_Name" Type="Edm.String" isUnique="false"/>
+                <Property Name="Pet_Category" Type="Edm.String" isUnique="false"/>
+                <Property Name="Pet_Species" Type="Edm.String" isUnique="false"/>
+                <Property Name="Pet_Age" Type="Edm.String" isUnique="false"/>
+                <Property Name="Pet_Gender" Type="Edm.String" isUnique="false"/>
+                <NavigationProperty Name="Owns" Type="Collection(Model.PetOwner)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="PetOwner">
+                <Key>
+                    <PropertyRef Name="Pet_OwnerId"/>
+                </Key>
+                <Property Name="Pet_OwnerId" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="Pet_OwnerName" Type="Edm.String" isUnique="false"/>
+                <Property Name="Pet_OwnerPhNumber" Type="Edm.Int64" isUnique="false"/>
+                <NavigationProperty Name="BookAppointmentScheduleVisitVaccine" Type="Collection(Model.Veterians)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Veterians">
+                <Key>
+                    <PropertyRef Name="Vet_Id"/>
+                </Key>
+                <Property Name="Vet_Id" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="Vet_Name" Type="Edm.String" isUnique="false"/>
+                <Property Name="Vet_Specialization" Type="Edm.String" isUnique="false"/>
+                <Property Name="Vet_PetAnimal" Type="Edm.String" isUnique="false"/>
+                <Property Name="Vet_Description" Type="Edm.String" isUnique="false"/>
+                <Property Name="Vet_Instagramprofiletofollow" Type="Edm.String" isUnique="false"/>
+                <NavigationProperty Name="Examinehealth" Type="Collection(Model.Pet)"/>
+            </EntityType>
+            <EntityContainer Name="Container">
+                <EntitySet Name="Pets" EntityType="Model.Pet">
+                    <NavigationPropertyBinding Path="Owns" Target="PetOwners"/>
+                </EntitySet>
+                <EntitySet Name="PetOwners" EntityType="Model.PetOwner">
+                    <NavigationPropertyBinding Path="BookAppointmentScheduleVisitVaccine" Target="Veterians"/>
+                </EntitySet>
+                <EntitySet Name="Veterians" EntityType="Model.Veterians">
+                    <NavigationPropertyBinding Path="Examinehealth" Target="Pets"/>
+                </EntitySet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
